@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h4 class="text-center alert alert-info">Add User</h4>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <input type="submit" class="btn btn-success btn-lg my-4" value="Add">
+            </form>
+        </div>
+
+
+        
+        <div class="col-6">
+            <h4 class="text-center alert alert-info">List of User</h4>
+
+            <table class="table">
+                <thead class="table-info">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Edit/Delete</th>
+                    </tr>
+                </thead>
+                <tbody class="table table-success table-striped">
+                    {% for dt in dta %}
+            
+                        <tr>
+                            <th scope="row">{{ dt.id}}</th>
+                            <td>{{ dt.name}}</td>
+                            <td>{{ dt.age}}</td>
+                            <td>{{ dt.phone}}</td>
+                            <td>{{ dt.email}}</td>
+                            <td>{{ dt.address}}</td>
+                            <td>
+                                
+                                <a href="{% url 'update1' dt.id %}" class="btn btn-warning btn-sm">Edit</a>
+                                <form action="{% url 'delete1' dt.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+            
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
